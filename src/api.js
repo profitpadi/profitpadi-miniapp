@@ -48,7 +48,8 @@ export const getProfile = async () => (await client.get('/auth/me')).data;
 
 // ── TRANSACTIONS ───────────────────────────────────────────────
 
-export const getTransactions   = async (limit = 20, offset = 0) => (await client.get(`/transactions?limit=${limit}&offset=${offset}`)).data;
+export const getTransactions       = async (limit = 20, offset = 0) => (await client.get(`/transactions?limit=${limit}&offset=${offset}`)).data;
+export const getRecentTransactions = async (limit = 5)             => getTransactions(limit, 0);
 export const getDailyTotals    = async ()             => (await client.get('/transactions/daily')).data;
 export const getWeeklyTotals   = async ()             => (await client.get('/transactions/weekly')).data;
 export const getMonthlyTotals  = async (year, month)  => {
