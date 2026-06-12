@@ -1,0 +1,318 @@
+/* miniapp/src/styles/theme.css */
+/* ============================================================
+   ProfitPadi Mini App Theme
+   Uses Telegram CSS variables so it always matches the user's
+   Telegram theme (dark/light) automatically — zero extra code.
+   ============================================================ */
+
+:root {
+  --pp-primary:       #008751;   /* Nigerian green */
+  --pp-primary-dark:  #006b40;
+  --pp-primary-light: #e8f5e9;
+  --pp-gold:          #FFD700;
+  --pp-danger:        #e53935;
+  --pp-warning:       #f57c00;
+  --pp-success:       #2e7d32;
+
+  /* Map to Telegram theme — auto dark/light */
+  --pp-bg:            var(--tg-theme-bg-color, #ffffff);
+  --pp-text:          var(--tg-theme-text-color, #1a1a1a);
+  --pp-button:        var(--tg-theme-button-color, #008751);
+  --pp-button-text:   var(--tg-theme-button-text-color, #ffffff);
+  --pp-hint:          var(--tg-theme-hint-color, #888888);
+  --pp-link:          var(--tg-theme-link-color, #008751);
+  --pp-secondary-bg:  var(--tg-theme-secondary-bg-color, #f5f5f5);
+
+  --pp-radius:        12px;
+  --pp-radius-sm:     8px;
+  --pp-shadow:        0 2px 12px rgba(0,0,0,0.08);
+  --pp-transition:    0.2s ease;
+
+  --pp-font:          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ── BASE ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family:      var(--pp-font);
+  background-color: var(--pp-bg);
+  color:            var(--pp-text);
+  font-size:        15px;
+  line-height:      1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x:       hidden;
+}
+
+/* ── LAYOUT ────────────────────────────────────────────────── */
+.app-container { max-width: 480px; margin: 0 auto; padding: 0 0 80px; min-height: 100vh; }
+.page          { padding: 16px; }
+.section       { margin-bottom: 20px; }
+.section-title { font-size: 13px; font-weight: 600; color: var(--pp-hint); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+
+/* ── CARDS ─────────────────────────────────────────────────── */
+.card {
+  background:    var(--pp-secondary-bg);
+  border-radius: var(--pp-radius);
+  padding:       16px;
+  margin-bottom: 12px;
+  box-shadow:    var(--pp-shadow);
+}
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.card-title  { font-size: 13px; color: var(--pp-hint); font-weight: 500; }
+
+/* ── PROFIT DISPLAY ────────────────────────────────────────── */
+.profit-card {
+  background:    linear-gradient(135deg, var(--pp-primary) 0%, var(--pp-primary-dark) 100%);
+  color:         white;
+  border-radius: var(--pp-radius);
+  padding:       20px;
+  margin-bottom: 16px;
+  text-align:    center;
+}
+.profit-card .label   { font-size: 12px; opacity: 0.85; text-transform: uppercase; letter-spacing: 0.5px; }
+.profit-card .amount  { font-size: 32px; font-weight: 700; margin: 4px 0; }
+.profit-card .period  { font-size: 12px; opacity: 0.75; }
+
+.profit-positive { color: var(--pp-success); font-weight: 600; }
+.profit-negative { color: var(--pp-danger);  font-weight: 600; }
+
+/* ── STAT ROW ──────────────────────────────────────────────── */
+.stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+.stat-box {
+  background: var(--pp-secondary-bg);
+  border-radius: var(--pp-radius-sm);
+  padding: 14px 12px;
+  text-align: center;
+}
+.stat-box .stat-label { font-size: 11px; color: var(--pp-hint); text-transform: uppercase; }
+.stat-box .stat-value { font-size: 18px; font-weight: 700; margin-top: 4px; }
+.stat-box.income  .stat-value { color: var(--pp-success); }
+.stat-box.expense .stat-value { color: var(--pp-danger); }
+
+/* ── BUTTONS ───────────────────────────────────────────────── */
+.btn {
+  display:         inline-flex;
+  align-items:     center;
+  justify-content: center;
+  gap:             6px;
+  padding:         12px 20px;
+  border:          none;
+  border-radius:   var(--pp-radius-sm);
+  font-size:       15px;
+  font-weight:     600;
+  cursor:          pointer;
+  transition:      var(--pp-transition);
+  text-decoration: none;
+  width:           100%;
+}
+.btn-primary { background: var(--pp-button); color: var(--pp-button-text); }
+.btn-primary:active { opacity: 0.85; transform: scale(0.98); }
+.btn-secondary { background: var(--pp-secondary-bg); color: var(--pp-text); border: 1px solid rgba(0,0,0,0.1); }
+.btn-danger    { background: var(--pp-danger); color: white; }
+.btn-sm        { padding: 8px 14px; font-size: 13px; }
+.btn-row       { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* ── FORM ELEMENTS ─────────────────────────────────────────── */
+.form-group    { margin-bottom: 16px; }
+.form-label    { display: block; font-size: 13px; color: var(--pp-hint); margin-bottom: 6px; font-weight: 500; }
+.form-input {
+  width:         100%;
+  padding:       12px 14px;
+  background:    var(--pp-secondary-bg);
+  border:        1.5px solid transparent;
+  border-radius: var(--pp-radius-sm);
+  font-size:     16px;
+  color:         var(--pp-text);
+  outline:       none;
+  transition:    var(--pp-transition);
+}
+.form-input:focus { border-color: var(--pp-primary); }
+.form-input::placeholder { color: var(--pp-hint); }
+
+/* ── TRANSACTION LIST ──────────────────────────────────────── */
+.tx-item {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  padding:         12px 0;
+  border-bottom:   1px solid rgba(0,0,0,0.06);
+}
+.tx-item:last-child    { border-bottom: none; }
+.tx-item .tx-desc      { font-size: 14px; font-weight: 500; }
+.tx-item .tx-meta      { font-size: 12px; color: var(--pp-hint); margin-top: 2px; }
+.tx-item .tx-amount    { font-size: 15px; font-weight: 700; }
+.tx-item .tx-income    { color: var(--pp-success); }
+.tx-item .tx-expense   { color: var(--pp-danger); }
+
+/* ── PROGRESS BAR ──────────────────────────────────────────── */
+.progress-bar { background: rgba(0,0,0,0.08); border-radius: 999px; height: 8px; overflow: hidden; }
+.progress-fill { background: var(--pp-primary); height: 100%; transition: width 0.5s ease; border-radius: 999px; }
+
+/* ── BADGE / TIER ──────────────────────────────────────────── */
+.tier-badge {
+  display:       inline-block;
+  padding:       3px 10px;
+  border-radius: 999px;
+  font-size:     11px;
+  font-weight:   700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tier-starter      { background: #e0e0e0; color: #555; }
+.tier-trader       { background: #e8f5e9; color: var(--pp-success); }
+.tier-professional { background: #e3f2fd; color: #1565c0; }
+.tier-business     { background: #f3e5f5; color: #6a1b9a; }
+.tier-accountant   { background: #fff8e1; color: #e65100; }
+
+/* ── TABS ──────────────────────────────────────────────────── */
+.tab-bar {
+  display:          flex;
+  background:       var(--pp-bg);
+  border-bottom:    1px solid rgba(0,0,0,0.08);
+  position:         sticky;
+  top:              0;
+  z-index:          10;
+}
+.tab-item {
+  flex:          1;
+  padding:       12px 0;
+  text-align:    center;
+  font-size:     12px;
+  font-weight:   500;
+  color:         var(--pp-hint);
+  border-bottom: 2px solid transparent;
+  cursor:        pointer;
+  transition:    var(--pp-transition);
+}
+.tab-item.active { color: var(--pp-primary); border-bottom-color: var(--pp-primary); }
+
+/* ── BOTTOM NAV ────────────────────────────────────────────── */
+.bottom-nav {
+  position:      fixed;
+  bottom:        0;
+  left:          0;
+  right:         0;
+  background:    var(--pp-bg);
+  border-top:    1px solid rgba(0,0,0,0.08);
+  display:       flex;
+  padding:       8px 0 calc(8px + env(safe-area-inset-bottom));
+  z-index:       100;
+}
+.nav-item {
+  flex:       1;
+  display:    flex;
+  flex-direction: column;
+  align-items: center;
+  gap:         3px;
+  font-size:  10px;
+  color:      var(--pp-hint);
+  cursor:     pointer;
+  transition: var(--pp-transition);
+}
+.nav-item.active { color: var(--pp-primary); }
+.nav-icon        { font-size: 22px; }
+
+/* ── LOADING ───────────────────────────────────────────────── */
+.loading-spinner {
+  width:  28px; height: 28px;
+  border: 3px solid rgba(0,135,81,0.2);
+  border-top-color: var(--pp-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  margin: 20px auto;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.skeleton {
+  background: linear-gradient(90deg, var(--pp-secondary-bg) 25%, rgba(0,0,0,0.04) 50%, var(--pp-secondary-bg) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--pp-radius-sm);
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* ── EXEMPT BADGE ──────────────────────────────────────────── */
+.exempt-badge {
+  background:    var(--pp-primary);
+  color:         white;
+  border-radius: var(--pp-radius);
+  padding:       12px 16px;
+  text-align:    center;
+  font-weight:   700;
+  font-size:     16px;
+}
+.exempt-badge .sub { font-size: 12px; font-weight: 400; opacity: 0.9; margin-top: 4px; }
+
+/* ── EMPTY STATE ───────────────────────────────────────────── */
+.empty-state { text-align: center; padding: 40px 20px; color: var(--pp-hint); }
+.empty-state .emoji { font-size: 40px; display: block; margin-bottom: 12px; }
+.empty-state p { font-size: 14px; line-height: 1.6; }
+
+/* ── APP HEADER / LOGO ─────────────────────────────────────── */
+/* Responsive across mobile (≤480), tablet (481–768), desktop (769+) */
+
+.pp-header {
+  position:         sticky;
+  top:              0;
+  z-index:          100;
+  background:       var(--pp-bg);
+  border-bottom:    1px solid rgba(0,0,0,0.07);
+  padding:          10px 16px;
+  backdrop-filter:  blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.pp-header-inner {
+  display:          flex;
+  align-items:      center;
+  gap:              10px;
+  max-width:        480px;
+  margin:           0 auto;
+}
+
+/* Logo icon */
+.pp-logo-icon {
+  width:            32px;
+  height:           32px;
+  flex-shrink:      0;
+}
+
+/* Wordmark */
+.pp-logo-wordmark {
+  display:          flex;
+  align-items:      baseline;
+  gap:              0;
+  font-size:        20px;
+  font-weight:      800;
+  line-height:      1;
+  letter-spacing:   -0.5px;
+}
+.pp-logo-profit { color: var(--pp-text); }
+.pp-logo-padi   { color: var(--pp-primary); }
+
+/* Compact mode (inner pages) */
+.pp-header[data-compact="true"] { padding: 7px 16px; }
+.pp-header[data-compact="true"] .pp-logo-icon      { width: 24px; height: 24px; }
+.pp-header[data-compact="true"] .pp-logo-wordmark  { font-size: 16px; }
+
+/* Tablet: 481px – 768px */
+@media (min-width: 481px) {
+  .pp-header           { padding: 12px 20px; }
+  .pp-header-inner     { max-width: 600px; }
+  .pp-logo-icon        { width: 36px; height: 36px; }
+  .pp-logo-wordmark    { font-size: 22px; }
+}
+
+/* Desktop: 769px+ */
+@media (min-width: 769px) {
+  .pp-header           { padding: 14px 32px; }
+  .pp-header-inner     { max-width: 800px; }
+  .pp-logo-icon        { width: 40px; height: 40px; }
+  .pp-logo-wordmark    { font-size: 26px; }
+}
+
+/* Dark mode: keep logo crisp */
+@media (prefers-color-scheme: dark) {
+  .pp-logo-profit { color: #ffffff; }
+}
