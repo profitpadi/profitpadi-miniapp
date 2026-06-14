@@ -32,8 +32,17 @@ export default function App() {
     const init = async () => {
       try {
         initTelegram();
-        const authData = await authenticate();
-        setUser(authData.user);
+        let authData;
+for (let i = 0; i < 3; i++) {
+  try {
+    authData = await authenticate();
+    break;
+  } catch {
+    if (i < 2) await new Promise(r => setTimeout(r, 1000));
+  }
+}
+if (!authData) throw new Error('Auth failed after retries');
+setUser(authData.user);
       } catch (e) {
         // In development without Telegram, create a mock user
         if (import.meta.env.DEV) {
