@@ -32,9 +32,11 @@ client.interceptors.response.use(
         await authenticate();
         err.config.headers.Authorization = `Bearer ${authToken}`;
         return client(err.config);
-      } finally {
-        isRefreshing = false;
+      } catch (authErr) {
+        // Login failed — stop retrying, send user to error state
+        return Promise.reject(authErr);
       }
+      // Note: isRefreshing intentionally NOT reset — stops the loop
     }
     return Promise.reject(err);
   }
