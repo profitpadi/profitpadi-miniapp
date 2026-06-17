@@ -20,16 +20,21 @@ client.interceptors.request.use((config) => {
   return config;
 });
 
-// Handle 401 — re-authenticate
+// Handle 401 — re-authenticate once only
+let isRefreshing = false;
 client.interceptors.response.use(
   (r) => r,
   async (err) => {
-    if (err.response?.status === 401) {
-      authToken = null;
-      await authenticate();
-      // Retry original request
-      err.config.headers.Authorization = `Bearer ${authToken}`;
-      return client(err.config);
+    if (err.response?.status === 401 && !isRefreshing) {
+      isRefreshing = true;
+      try {
+        authToken = null;
+        await authenticate();
+        err.config.headers.Authorization = `Bearer ${authToken}`;
+        return client(err.config);
+      } finally {
+        isRefreshing = false;
+      }
     }
     return Promise.reject(err);
   }
