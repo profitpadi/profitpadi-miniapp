@@ -32,15 +32,17 @@ export default function App() {
     const init = async () => {
       try {
         initTelegram();
+        // Wait for Telegram WebApp to be fully ready
+        await new Promise(r => setTimeout(r, 500));
         let authData;
-for (let i = 0; i < 3; i++) {
-  try {
-    authData = await authenticate();
-    break;
-  } catch {
-    if (i < 2) await new Promise(r => setTimeout(r, 1000));
-  }
-}
+        for (let i = 0; i < 3; i++) {
+          try {
+            authData = await authenticate();
+            if (authData?.user) break;
+          } catch {
+            if (i < 2) await new Promise(r => setTimeout(r, 1500));
+          }
+        }
 if (!authData) throw new Error('Auth failed after retries');
 setUser(authData.user);
       } catch (e) {
